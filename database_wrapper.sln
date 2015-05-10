@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "database_wrapper", "database_wrapper\database_wrapper.vcxproj", "{EF281F78-ABC7-45DE-AFAD-4A7D27221645}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EF4F9254-E37B-4EBB-AB9F-30F2D1485006}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF281F78-ABC7-45DE-AFAD-4A7D27221645}.Debug|x86.ActiveCfg = Debug|Win32
+		{EF281F78-ABC7-45DE-AFAD-4A7D27221645}.Debug|x86.Build.0 = Debug|Win32
+		{EF281F78-ABC7-45DE-AFAD-4A7D27221645}.Release|x86.ActiveCfg = Release|Win32
+		{EF281F78-ABC7-45DE-AFAD-4A7D27221645}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

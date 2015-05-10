@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="database">
+      <UniqueIdentifier>{4f5b6228-1408-415c-8d59-04f927a124e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="database\sqlserver">
+      <UniqueIdentifier>{84dd705c-cfa9-43e9-a9de-b40eee4d590c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="database\sqlite">
+      <UniqueIdentifier>{8235a2ef-28e4-4fda-993c-4ad69429979b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="database\detail">
+      <UniqueIdentifier>{6358f634-1ea8-466f-a5f9-2d214158953d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="database\sqlserver\detail">
+      <UniqueIdentifier>{9aa7a428-18f9-42e7-b1de-8c60c0482184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="database\sqlite\detail">
+      <UniqueIdentifier>{b31de153-1f7d-42ac-9cfd-bc9a50b7b939}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver.h">
+      <Filter>database</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlite.h">
+      <Filter>database</Filter>
+    </ClInclude>
+    <ClInclude Include="database\detail\basic_object.h">
+      <Filter>database\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\detail\basic_service.h">
+      <Filter>database\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\sqlserver_connect_service.h">
+      <Filter>database\sqlserver</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlite\sqlite_connect_service.h">
+      <Filter>database\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="database\detail\basic_connect.h">
+      <Filter>database\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlite\sqlite_connect.h">
+      <Filter>database\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\sqlserver_connect.h">
+      <Filter>database\sqlserver</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\sqlserver_command.h">
+      <Filter>database\sqlserver</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\sqlserver_command_service.h">
+      <Filter>database\sqlserver</Filter>
+    </ClInclude>
+    <ClInclude Include="database\detail\basic_command.h">
+      <Filter>database\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\detail\basic_recordset.h">
+      <Filter>database\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\sqlserver_recordset.h">
+      <Filter>database\sqlserver</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\sqlserver_recordset_service.h">
+      <Filter>database\sqlserver</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlite\sqlite_command.h">
+      <Filter>database\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlite\sqlite_command_service.h">
+      <Filter>database\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlite\sqlite_recordset.h">
+      <Filter>database\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlite\sqlite_recordset_service.h">
+      <Filter>database\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\detail\command.h">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\detail\connection.h">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\detail\error.h">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\detail\errors.h">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\detail\event_connection.h">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\detail\event_recordset.h">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\detail\field.h">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\detail\fields.h">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\detail\msado.h">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\detail\parameter.h">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\detail\parameters.h">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\detail\properties.h">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\detail\property.h">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlserver\detail\recordset.h">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlite\detail\sqlite3.h">
+      <Filter>database\sqlite\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlite\detail\sqlite3ext.h">
+      <Filter>database\sqlite\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlite\detail\sqlite3_command.h">
+      <Filter>database\sqlite\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlite\detail\sqlite3_connection.h">
+      <Filter>database\sqlite\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="database\sqlite\detail\sqlite3_recordset.h">
+      <Filter>database\sqlite\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="test_sqlserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test_sqlite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlserver_sqlite_wrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\command.cpp">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\connection.cpp">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\error.cpp">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\errors.cpp">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\field.cpp">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\fields.cpp">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\parameter.cpp">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\parameters.cpp">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\properties.cpp">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\property.cpp">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\recordset.cpp">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlite\detail\sqlite3.c">
+      <Filter>database\sqlite\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlite\detail\sqlite3_command.cpp">
+      <Filter>database\sqlite\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlite\detail\sqlite3_connection.cpp">
+      <Filter>database\sqlite\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlite\detail\sqlite3_recordset.cpp">
+      <Filter>database\sqlite\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="test_sqlite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_sqlserver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
