@@ -125,7 +125,7 @@ void msado::command::set_command_timeout(long pl/* = 30second*/)
 	ptr_->put_CommandTimeout(pl);
 }
 
-bool msado::command::get_prepared()
+bool msado::command::get_prepared() const
 {
 	VARIANT_BOOL vb = 0;
 	ptr_->get_Prepared(&vb);

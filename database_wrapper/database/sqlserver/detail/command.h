@@ -26,7 +26,7 @@ namespace msado
 		void set_command_text(string const& pbstr);
 		long get_command_timeout() const;
 		void set_command_timeout(long pl = 30/*second*/);
-		bool get_prepared();
+		bool get_prepared() const;
 		void set_prepared(bool pfPrepared);
 		recordset execute(
 			long * RecordsAffected,
