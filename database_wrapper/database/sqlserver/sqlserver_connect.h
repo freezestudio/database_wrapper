@@ -143,14 +143,16 @@ namespace database
 	}
 
 	template<typename DataBase, template<typename> class SqlService>
-	inline typename sqlserver_connect<DataBase, SqlService>::implement_type::interface_type const*
+	inline typename sqlserver_connect<DataBase, SqlService>::
+		implement_type::interface_type const*
 		sqlserver_connect<DataBase, SqlService>::get_internal_ptr() const
 	{
 		return get_implement().get();
 	}
 
 	template<typename DataBase, template<typename> class SqlService>
-	inline typename sqlserver_connect<DataBase, SqlService>::implement_type::interface_type*
+	inline typename sqlserver_connect<DataBase, SqlService>::
+		implement_type::interface_type*
 		sqlserver_connect<DataBase, SqlService>::get_internal_ptr()
 	{
 		return get_implement().get();

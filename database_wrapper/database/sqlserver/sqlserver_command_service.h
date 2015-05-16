@@ -35,9 +35,9 @@ namespace database
 	//	{
 	//		return database_;
 	//	}
-	public:
-		bool open(implement_type& impl);
-		bool close(implement_type& impl);
+	//public:
+	//	bool open(implement_type& impl);
+	//	bool close(implement_type& impl);
 	public:
 		sqlserver_connect<DataBase> get_active_connection(
 			implement_type const& impl) const;
@@ -100,8 +100,8 @@ namespace database
 		//msado::string get_dialect(implement_type const& impl) const;
 		//void set_named_parameters(implement_type& impl,bool pfNamedParameters);
 		//bool get_named_parameters(implement_type const& impl) const;
-	private:
-		bool opened(implement_type const& impl) const;
+	//private:
+	//	bool opened(implement_type const& impl) const;
 	private:
 		database_type database_;
 	};
@@ -114,50 +114,53 @@ namespace database
 		sqlserver_command_service<DataBase>::get_active_connection(
 			implement_type const& impl) const
 	{
-
+		msado::connection conn = impl.get_active_connection();
+		return sqlserver_connect<DataBase>(database_, conn);
 	}
 
 	template<typename DataBase>
 	inline bool sqlserver_command_service<DataBase>::set_ref_active_connection(
 		implement_type& impl,sqlserver_connection<DataBase>& conn)
 	{
-
+		_vraiant_t var(conn.get_internal_ptr());
+		return impl.set_active_connection(var);
 	}
 	
 	template<typename DataBase>
 	inline bool sqlserver_command_service<DataBase>::set_active_connection(
 		implement_type& impl,string const& connstr)
 	{
-
+		return impl.set_active_connection(_variant_t(
+			static_cast<const wchar_t*>(connstr));
 	}
-	
+		
 	template<typename DataBase>
 	inline msado::string 
 		sqlserver_command_service<DataBase>::get_command_text(
 			implement_type const& impl) const
 	{
-
+		return impl.get_command_text();
 	}
 	
 	template<typename DataBase>
 	inline void sqlserver_command_service<DataBase>::set_command_text(
 		implement_type& impl,string const& pbstr)
 	{
-
+		impl.set_command_text(pbstr);
 	}
 	
 	template<typename DataBase>
 	inline long sqlserver_command_service<DataBase>::get_command_timeout(
 		implement_type const& impl) const
 	{
-
+		return impl.get_command_timeout();
 	}
 	
 	template<typename DataBase>
 	inline void sqlserver_command_service<DataBase>::set_command_timeout(
 		implement_type& impl,long pl/* = 30second*/)
 	{
-
+		impl.set_command_timeout(static_cast<long>(pl));
 	}
 	
 	template<typename DataBase>
@@ -196,7 +199,8 @@ namespace database
 		implement_type& impl,string const& name, data_type type,
 		parameter_direction direction, long size,long value)
 	{
-		return impl.create_parameter(name, type, direction, size, _varinat_t(value));
+		return impl.create_parameter(name, type, direction, 
+			static_cast<long>(size), _varinat_t(value));
 	}
 
 	template<typename DataBase>
@@ -204,7 +208,8 @@ namespace database
 		implement_type& impl,string const& name, data_type type,
 		parameter_direction direction, long size,unsigned long value)
 	{
-		return impl.create_parameter(name, type, direction, size, _variant_t(value));
+		return impl.create_parameter(name, type, direction, 
+			static_cast<long>(size), _variant_t(value));
 	}
 
 	template<typename DataBase>
@@ -213,7 +218,8 @@ namespace database
 			implement_type& impl,string const& name, data_type type,
 		parameter_direction direction, long size,double value)
 	{
-		return impl.create_parameter(name, type, direction, size, _variant_t(value));
+		return impl.create_parameter(name, type, direction, 
+			static_cast<long>(size), _variant_t(value));
 	}
 
 	template<typename DataBase>
@@ -221,7 +227,8 @@ namespace database
 		implement_type& impl,string const& name, data_type type,
 		parameter_direction direction, long size,string const& value)
 	{
-		return impl.create_parameter(name, type, direction, size, _variant_t(value));
+		return impl.create_parameter(name, type, direction,
+			static_cast<long>(size), _variant_t(value));
 	}
 
 	template<typename DataBase>
@@ -229,7 +236,8 @@ namespace database
 		implement_type& impl,string const& name, data_type type,
 		parameter_direction direction, long size,datetime const& value)
 	{
-		return impl.create_parameter(name, type, direction, size, _variant_t(value));
+		return impl.create_parameter(name, type, direction, 
+			static_cast<long>(size), _variant_t(value));
 	}
 
 	template<typename DataBase>

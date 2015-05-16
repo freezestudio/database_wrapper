@@ -129,10 +129,11 @@ namespace database
 		void set_sort(string const& criteria);
 		long get_status() const;
 		long get_state() const;
-		sqlserver_recordset<DataBase> _xclone();
+		sqlserver_recordset<DataBase,SqlService> _xclone();
 		msado::cursor_location get_cursor_location() const;
 		void set_cursor_location(msado::cursor_location plcursorloc);
-		sqlserver_recordset<DataBase> next_recordset(long * recordsaffected);
+		sqlserver_recordset<DataBase,SqlService> next_recordset(
+			long * recordsaffected);
 		bool supports(msado::cursor_option cursoroptions);
 		string get_collect(long index) const;
 		string get_collect(string const& index) const;
@@ -153,7 +154,7 @@ namespace database
 		void set_data_member(string const& pbstrdatamember);
 		//msado::_compare compare_bookmarks(
 		//	_variant_t const& bookmark1, _variant_t const& bookmark2);
-		sqlserver_recordset<DataBase> clone(msado::lock_type locktype);
+		sqlserver_recordset<DataBase,SqlService> clone(msado::lock_type locktype);
 		bool resync(
 			msado::affect affectrecords, msado::_resync resyncvalues);
 		//bool seek(
@@ -162,6 +163,9 @@ namespace database
 		//string get_index() const;
 		//bool save(_variant_t const& destination,
 		//	msado::persist_format persistformat = msado::persist_adtg);
+	public:
+		typename implement_type::interface_type const* get_internal_ptr() const;
+		typename implement_type::interface_type * get_internal_ptr();
 	};
 }
 
@@ -860,5 +864,21 @@ namespace database
 		msado::affect affectrecords, msado::_resync resyncvalues)
 	{
 		return get_service().resync(get_implement(),affectrecords,resyncvalues);
+	}
+
+	template<typename DataBase, template<typename>class SqlService>
+	inline typename sqlserver_recordset<DataBase, SqlService>::
+		implement_type::interface_type const*
+		sqlserver_recordset<DataBase, SqlService>::get_internal_ptr() const
+	{
+		return get_implement().get();
+	}
+	
+	template<typename DataBase, template<typename>class SqlService>
+	inline typename sqlserver_recordset<DataBase, SqlService>::
+		implement_type::interface_type *
+		sqlserver_recordset<DataBase, SqlService>::get_internal_ptr()
+	{
+		return get_implement().get();
 	}
 }
