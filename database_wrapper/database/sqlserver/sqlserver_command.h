@@ -24,7 +24,7 @@ namespace database
 		}
 	public:
 		sqlserver_connect<DataBase> get_active_connection() const;
-		bool set_ref_active_connection(sqlserver_connection<DataBase>& conn);
+		bool set_ref_active_connection(sqlserver_connect<DataBase>& conn);
 		bool set_active_connection(string const& connstr);
 		msado::string get_command_text() const;
 		void set_command_text(string const& pbstr);
@@ -37,32 +37,32 @@ namespace database
 			string const& parameters,
 			long options = msado::/*command_type::*/cmd_text);
 		msado::parameter create_parameter(
-			string const& name, data_type type,
-			parameter_direction direction, long size,
+			string const& name, msado::data_type type,
+			msado::parameter_direction direction, long size,
 			long value);
 
 		msado::parameter create_parameter(
-			string const& name, data_type type,
-			parameter_direction direction, long size,
+			string const& name, msado::data_type type,
+			msado::parameter_direction direction, long size,
 			unsigned long value);
 
 		msado::parameter create_parameter(
-			string const& name, data_type type,
-			parameter_direction direction, long size,
+			string const& name, msado::data_type type,
+			msado::parameter_direction direction, long size,
 			double value);
 
 		msado::parameter create_parameter(
-			string const& name, data_type type,
-			parameter_direction direction, long size,
+			string const& name, msado::data_type type,
+			msado::parameter_direction direction, long size,
 			string const& value);
 
 		msado::parameter create_parameter(
-			string const& name, data_type type,
-			parameter_direction direction, long size,
+			string const& name, msado::data_type type,
+			msado::parameter_direction direction, long size,
 			datetime const& value);
 
 		msado::parameters get_parameters() const;
-		void set_command_type(command_type plCmdType);
+		void set_command_type(msado::command_type plCmdType);
 		msado::command_type get_command_type() const;
 		msado::string get_name() const;
 		void set_name(string const& pbstrName);
@@ -85,7 +85,7 @@ namespace database
 
 	template<typename DataBase, template<typename>class SqlService>
 	inline bool sqlserver_command<DataBase, SqlService>::set_ref_active_connection(
-		sqlserver_connection<DataBase>& conn)
+		sqlserver_connect<DataBase>& conn)
 	{
 		return get_service().set_ref_active_connection(get_implement(),conn);
 	}
@@ -152,8 +152,8 @@ namespace database
 	template<typename DataBase, template<typename>class SqlService>
 	inline msado::parameter 
 		sqlserver_command<DataBase, SqlService>::create_parameter(
-		string const& name, data_type type,
-		parameter_direction direction, long size,
+		string const& name, msado::data_type type,
+			msado::parameter_direction direction, long size,
 		long value)
 	{
 		return get_service().create_parameter(get_implement(),
@@ -163,8 +163,8 @@ namespace database
 	template<typename DataBase, template<typename>class SqlService>
 	inline msado::parameter 
 		sqlserver_command<DataBase, SqlService>::create_parameter(
-		string const& name, data_type type,
-		parameter_direction direction, long size,
+		string const& name, msado::data_type type,
+			msado::parameter_direction direction, long size,
 		unsigned long value)
 	{
 		return get_service().create_parameter(get_implement(),
@@ -174,8 +174,8 @@ namespace database
 	template<typename DataBase, template<typename>class SqlService>
 	inline msado::parameter 
 		sqlserver_command<DataBase, SqlService>::create_parameter(
-		string const& name, data_type type,
-		parameter_direction direction, long size,
+			string const& name, msado::data_type type,
+			msado::parameter_direction direction, long size,
 		double value)
 	{
 		return get_service().create_parameter(get_implement(),
@@ -185,8 +185,8 @@ namespace database
 	template<typename DataBase, template<typename>class SqlService>
 	inline msado::parameter 
 		sqlserver_command<DataBase, SqlService>::create_parameter(
-		string const& name, data_type type,
-		parameter_direction direction, long size,
+			string const& name, msado::data_type type,
+			msado::parameter_direction direction, long size,
 		string const& value)
 	{
 		return get_service().create_parameter(get_implement(),
@@ -196,9 +196,9 @@ namespace database
 	template<typename DataBase, template<typename>class SqlService>
 	inline msado::parameter 
 		sqlserver_command<DataBase, SqlService>::create_parameter(
-		string const& name, data_type type,
-		parameter_direction direction, long size,
-		datetime const& value)
+			string const& name, msado::data_type type,
+			msado::parameter_direction direction, long size,
+			datetime const& value)
 	{
 		return get_service().create_parameter(get_implement(),
 			name,type,direction,size,value);
@@ -213,7 +213,7 @@ namespace database
 
 	template<typename DataBase, template<typename>class SqlService>
 	inline void sqlserver_command<DataBase, SqlService>::set_command_type(
-		command_type plCmdType)
+		msado::command_type plCmdType)
 	{
 		get_service().set_command_type(get_implement(),plCmdType);
 	}

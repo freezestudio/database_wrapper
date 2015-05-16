@@ -717,7 +717,7 @@ namespace database
 	}
 
 	template<typename DataBase, template<typename>class SqlService>
-	inline sqlserver_recordset<DataBase> 
+	inline sqlserver_recordset<DataBase,SqlService> 
 		sqlserver_recordset<DataBase, SqlService>::_xclone()
 	{
 		return get_service()._xclone(get_implement());
@@ -738,7 +738,7 @@ namespace database
 	}
 
 	template<typename DataBase, template<typename>class SqlService>
-	inline sqlserver_recordset<DataBase> 
+	inline sqlserver_recordset<DataBase,SqlService> 
 		sqlserver_recordset<DataBase, SqlService>::next_recordset(
 			long * recordsaffected)
 	{
@@ -853,7 +853,7 @@ namespace database
 	//	_variant_t const& bookmark1, _variant_t const& bookmark2);
 
 	template<typename DataBase, template<typename>class SqlService>
-	inline sqlserver_recordset<DataBase> 
+	inline sqlserver_recordset<DataBase,SqlService> 
 		sqlserver_recordset<DataBase, SqlService>::clone(msado::lock_type locktype)
 	{
 		return get_service().clone(get_implement(),locktype);

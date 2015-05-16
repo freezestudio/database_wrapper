@@ -42,7 +42,7 @@ namespace database
 		sqlserver_connect<DataBase> get_active_connection(
 			implement_type const& impl) const;
 		bool set_ref_active_connection(
-			implement_type& impl,sqlserver_connection<DataBase>& conn);
+			implement_type& impl,sqlserver_connect<DataBase>& conn);
 		bool set_active_connection(implement_type& impl,string const& connstr);
 		msado::string get_command_text(implement_type const& impl) const;
 		void set_command_text(implement_type& impl, string const& pbstr);
@@ -63,32 +63,32 @@ namespace database
 		//	const _variant_t & Value = vtMissing);
 
 		msado::parameter create_parameter(implement_type& impl,
-			string const& name,	data_type type,
-			parameter_direction direction,long size,
+			string const& name,	msado::data_type type,
+			msado::parameter_direction direction,long size,
 			long value);
 
 		msado::parameter create_parameter(implement_type& impl,
-			string const& name, data_type type,
-			parameter_direction direction, long size,
+			string const& name, msado::data_type type,
+			msado::parameter_direction direction, long size,
 			unsigned long value);
 
 		msado::parameter create_parameter(implement_type& impl,
-			string const& name, data_type type,
-			parameter_direction direction, long size,
+			string const& name, msado::data_type type,
+			msado::parameter_direction direction, long size,
 			double value);
 
 		msado::parameter create_parameter(implement_type& impl,
-			string const& name, data_type type,
-			parameter_direction direction, long size,
+			string const& name, msado::data_type type,
+			msado::parameter_direction direction, long size,
 			string const& value);
 
 		msado::parameter create_parameter(implement_type& impl,
-			string const& name, data_type type,
-			parameter_direction direction, long size,
+			string const& name, msado::data_type type,
+			msado::parameter_direction direction, long size,
 			datetime const& value);
 
 		msado::parameters get_parameters(implement_type const& impl ) const;
-		void set_command_type(implement_type& impl, command_type plCmdType);
+		void set_command_type(implement_type& impl, msado::command_type plCmdType);
 		msado::command_type get_command_type(implement_type const& impl ) const;
 		msado::string get_name(implement_type const& impl) const;
 		void set_name(implement_type& impl,string const& pbstrName);
@@ -120,7 +120,7 @@ namespace database
 
 	template<typename DataBase>
 	inline bool sqlserver_command_service<DataBase>::set_ref_active_connection(
-		implement_type& impl,sqlserver_connection<DataBase>& conn)
+		implement_type& impl,sqlserver_connect<DataBase>& conn)
 	{
 		_vraiant_t var(conn.get_internal_ptr());
 		return impl.set_active_connection(var);
@@ -131,7 +131,7 @@ namespace database
 		implement_type& impl,string const& connstr)
 	{
 		return impl.set_active_connection(_variant_t(
-			static_cast<const wchar_t*>(connstr));
+			static_cast<const wchar_t*>(connstr)));
 	}
 		
 	template<typename DataBase>
@@ -196,8 +196,8 @@ namespace database
 
 	template<typename DataBase>
 	inline msado::parameter sqlserver_command_service<DataBase>::create_parameter(
-		implement_type& impl,string const& name, data_type type,
-		parameter_direction direction, long size,long value)
+		implement_type& impl,string const& name, msado::data_type type,
+		msado::parameter_direction direction, long size,long value)
 	{
 		return impl.create_parameter(name, type, direction, 
 			static_cast<long>(size), _varinat_t(value));
@@ -205,8 +205,8 @@ namespace database
 
 	template<typename DataBase>
 	inline msado::parameter sqlserver_command_service<DataBase>::create_parameter(
-		implement_type& impl,string const& name, data_type type,
-		parameter_direction direction, long size,unsigned long value)
+		implement_type& impl,string const& name, msado::data_type type,
+		msado::parameter_direction direction, long size,unsigned long value)
 	{
 		return impl.create_parameter(name, type, direction, 
 			static_cast<long>(size), _variant_t(value));
@@ -215,8 +215,8 @@ namespace database
 	template<typename DataBase>
 	inline msado::parameter 
 		sqlserver_command_service<DataBase>::create_parameter(
-			implement_type& impl,string const& name, data_type type,
-		parameter_direction direction, long size,double value)
+			implement_type& impl,string const& name, msado::data_type type,
+			msado::parameter_direction direction, long size,double value)
 	{
 		return impl.create_parameter(name, type, direction, 
 			static_cast<long>(size), _variant_t(value));
@@ -224,8 +224,8 @@ namespace database
 
 	template<typename DataBase>
 	inline msado::parameter sqlserver_command_service<DataBase>::create_parameter(
-		implement_type& impl,string const& name, data_type type,
-		parameter_direction direction, long size,string const& value)
+		implement_type& impl,string const& name, msado::data_type type,
+		msado::parameter_direction direction, long size,string const& value)
 	{
 		return impl.create_parameter(name, type, direction,
 			static_cast<long>(size), _variant_t(value));
@@ -233,8 +233,8 @@ namespace database
 
 	template<typename DataBase>
 	inline msado::parameter sqlserver_command_service<DataBase>::create_parameter(
-		implement_type& impl,string const& name, data_type type,
-		parameter_direction direction, long size,datetime const& value)
+		implement_type& impl,string const& name, msado::data_type type,
+		msado::parameter_direction direction, long size,datetime const& value)
 	{
 		return impl.create_parameter(name, type, direction, 
 			static_cast<long>(size), _variant_t(value));
@@ -250,7 +250,7 @@ namespace database
 	
 	template<typename DataBase>
 	inline void sqlserver_command_service<DataBase>::set_command_type(
-		implement_type& impl,command_type plCmdType)
+		implement_type& impl, msado::command_type plCmdType)
 	{
 		impl.set_command_type(plCmdType);
 	}
@@ -264,7 +264,11 @@ namespace database
 	}
 	
 	template<typename DataBase>
-	inline msado::string sqlserver_command_service<DataBase>::get_name() const;
+	inline msado::string sqlserver_command_service<DataBase>::get_name(
+		implement_type const& impl) const
+	{
+		return impl.get_name();
+	}
 	
 	template<typename DataBase>
 	inline void sqlserver_command_service<DataBase>::set_name(

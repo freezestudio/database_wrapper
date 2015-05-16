@@ -143,7 +143,7 @@
     <ClCompile Include="database\sqlserver\detail\properties.cpp" />
     <ClCompile Include="database\sqlserver\detail\property.cpp" />
     <ClCompile Include="database\sqlserver\detail\recordset.cpp" />
-    <ClCompile Include="sqlserver_sqlite_wrapper.cpp" />
+    <ClCompile Include="database_wrapper.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="test_sqlite.cpp" />
     <ClCompile Include="test_sqlserver.cpp" />
