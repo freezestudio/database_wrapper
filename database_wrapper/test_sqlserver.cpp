@@ -164,18 +164,30 @@ void sqlserver_test::test_recordset_create()
 	pset = new recordset_test;
 	bool set_opened = pset->open(L"person", *pconn);
 
+	//Modify
 	//pset->set_value(1, L"张三");
 	//pset->update();
 
+	//AddNew
 	bool can_add = pset->supports(msado::cursor_option::add_new);
 	bool b_add_new = pset->add_new();
 	if (pset->get_edit_mode() == msado::edit_add)
 	{
-		pset->set_value(1, L"王五");
-		pset->set_value(2, L"保卫部");
-		pset->set_value(3, long(30));
-		pset->set_value(4, L"宁夏银川");
-		pset->update();
+		pset->set_value(L"Name", L"王五");
+		pset->set_value(L"Unit", L"保卫部");
+		pset->set_value(L"Age", long(30));
+		pset->set_value(4, L"1990-3-11");
+		pset->set_value(L"Address", L"宁夏银川");
+		try
+		{
+			bool bupdate=pset->update();
+		}
+		catch (_com_error& e)
+		{
+			_bstr_t dest=e.Description();
+			_bstr_t msg = e.ErrorMessage();
+		}
+		//bool batch=pset->update_batch(msado::affect::affect_all);
 	}
 
 	pset->close();

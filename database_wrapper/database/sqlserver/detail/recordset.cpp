@@ -337,6 +337,10 @@ bool msado::recordset::_update(
 	const _variant_t & Values/* = vtMissing*/)
 {
 	HRESULT hr=ptr_->Update(Fields, Values);
+	if (FAILED(hr))
+	{
+		_com_issue_error(hr);
+	}
 	return hr == S_OK;
 }
 
