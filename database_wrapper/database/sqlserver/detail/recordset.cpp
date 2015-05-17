@@ -1,74 +1,36 @@
 #include "recordset.h"
-#include "event_recordset.h"
 
 /////////////////////////////////////////////////
 // ctor dtor internal method
 
 msado::recordset::recordset()
 	: cimpl<recordset,_RecordsetPtr>()
-	//, eventptr_(new recordset_event<recordset>)
-	, dw_event_(0)
 {
-	//enable_event();
 }
 
 msado::recordset::recordset(recordset const& rhs)
 	: cimpl<recordset,_RecordsetPtr>(rhs)
-	, eventptr_(rhs.eventptr_)
-	, dw_event_(rhs.dw_event_)
 {
-	enable_event();
 }
 
 msado::recordset::recordset(recordset::interface_type* ptr)
 	: cimpl<recordset, _RecordsetPtr>(ptr)
-	, eventptr_(new recordset_event<recordset>)
-	, dw_event_(0)
 {
-	enable_event();
 }
 
 msado::recordset::recordset(CLSID const& clsid)
 	: cimpl<recordset, _RecordsetPtr>(clsid)
-	, eventptr_(new recordset_event<recordset>)
-	, dw_event_(0)
 {
-	enable_event();
 }
 
 msado::recordset::~recordset()
 {
-	enable_event(false);
 }
 
-bool msado::recordset::enable_event(bool enable/* = true*/)
+bool msado::recordset::enable_event(recordset_event* pevent, bool enable/* = true*/)
 {
-	IConnectionPointContainerPtr connPointerContainer;
-	HRESULT hr = ptr_.QueryInterface(
-		IID_IConnectionPointContainer, &connPointerContainer);
-	if (FAILED(hr))return false;
-
-	IConnectionPointPtr connPointer;
-	hr = connPointerContainer->FindConnectionPoint(
-		__uuidof(RecordsetEvents), &connPointer);
-	if (FAILED(hr))return false;
-
-	if (enable)
-	{
-		_com_ptr_t < _com_IIID<IUnknown, &__uuidof(IUnknown)> > eventptr;
-		hr = eventptr_->QueryInterface(IID_IUnknown, (void**)&eventptr);
-		if (FAILED(hr))return false;
-
-		hr = connPointer->Advise(eventptr, &dw_event_);
-	}
-	else
-	{
-		hr = connPointer->Unadvise(dw_event_);
-	}
-
-	if (FAILED(hr))return false;
-
-	return true;
+	//一旦启动事件，将产生了一错误中断，还没查明原因！！！
+	return pevent->enable_event(enable);
 }
 
 //////////////////////////////////////////////////////////////
@@ -188,6 +150,13 @@ bool msado::recordset::get_EOF() const
 }
 
 msado::fields msado::recordset::get_fields() const
+{
+	fields fs;
+	ptr_->get_Fields(fs.get_address_of());
+	return fs;
+}
+
+msado::fields msado::recordset::get_fields()
 {
 	fields fs;
 	ptr_->get_Fields(fs.get_address_of());
@@ -339,9 +308,9 @@ bool msado::recordset::move_last()
 bool msado::recordset::open(
 	const _variant_t & Source,
 	const _variant_t & ActiveConnection,
-	cursor_type CursorType/* = open_dynamic*/,
+	cursor_type CursorType/* = open_keyset*/,
 	lock_type LockType/* = lock_optimistic*/,
-	long Options/* = command_type::cmd_text*/)
+	long Options/* = command_type::cmd_table*/)
 {
 	HRESULT hr = ptr_->Open(Source, ActiveConnection,
 		static_cast<CursorTypeEnum>(CursorType),
@@ -465,7 +434,7 @@ bool msado::recordset::update_batch(affect AffectRecords)
 bool msado::recordset::cancel_batch(affect AffectRecords)
 {
 	HRESULT hr = ptr_->CancelBatch(static_cast<AffectEnum>(AffectRecords));
-	return S_OK;
+	return hr == S_OK;
 }
 
 msado::cursor_location msado::recordset::get_cursor_location() const

@@ -4,12 +4,13 @@
 
 namespace msado
 {
-	template<typename Event>
 	class recordset_event
 		: public RecordsetEventsVt
 	{
 	public:
-		recordset_event();
+		explicit recordset_event(recordset* _event);
+		recordset_event(recordset_event const&);
+		~recordset_event();
 	public:
 		virtual HRESULT STDMETHODCALLTYPE QueryInterface(
 			/* [in] */ REFIID riid,
@@ -79,186 +80,19 @@ namespace msado
 			/* [in] */ __RPC__in_opt ADOError *pError,
 			/* [out][in] */ __RPC__inout EventStatusEnum *adStatus,
 			/* [in] */ __RPC__in_opt _ADORecordset *pRecordset);
+
+	public:
+		bool enable_event(bool enable = true);
+
+	private:
+		void init();
 	private:
 		ULONG ref_;
-		Event event_;
+		DWORD dw_event_;
+		recordset* eventp_;
+
+	private:
+		IConnectionPointContainer* pconnPointerContainer;
+		IConnectionPoint* pconnPointer;
 	};
-}
-
-namespace msado
-{
-	template<typename Event>
-	inline recordset_event<Event>::recordset_event()
-		: ref_(0)
-	{
-
-	}
-
-	//////////////////////////////////////////////////////
-	//
-
-	template<typename Event>
-	inline HRESULT STDMETHODCALLTYPE recordset_event<Event>::QueryInterface(
-		REFIID riid,
-		void **ppvObject)
-	{
-		if (riid == IID_IUnknown || riid == __uuidof(RecordsetEventsVt))
-		{
-			*ppvObject = this;
-			AddRef();
-			return S_OK;
-		}
-
-		return E_FAIL;
-	}
-
-	template<typename Event>
-	inline ULONG STDMETHODCALLTYPE recordset_event<Event>::AddRef(void)
-	{
-		++ref_;
-		return ref_;
-	}
-
-	template<typename Event>
-	inline ULONG STDMETHODCALLTYPE recordset_event<Event>::Release(void)
-	{
-		if (--ref_ == 0)
-		{
-			delete this;
-		}
-		return ref_;
-	}
-
-	//////////////////////////////////////////////////////
-	//
-
-	template<typename Event>
-	inline HRESULT STDMETHODCALLTYPE recordset_event<Event>::WillChangeField(
-		LONG cFields,
-		VARIANT Fields,
-		EventStatusEnum *adStatus,
-		_ADORecordset *pRecordset)
-	{
-		event_.on_field_changing(cFields, _variant_t(Fields, false));
-		//*adStatus = adStatusUnwantedEvent;
-		return S_OK;
-	}
-
-	template<typename Event>
-	inline HRESULT STDMETHODCALLTYPE recordset_event<Event>::FieldChangeComplete(
-		LONG cFields,
-		VARIANT Fields,
-		ADOError *pError,
-		EventStatusEnum *adStatus,
-		_ADORecordset *pRecordset)
-	{
-		event_.on_field_changed(cFields, _variant_t(Fields, false), pError);
-		//*adStatus = adStatusUnwantedEvent;
-		return S_OK;
-	}
-
-	template<typename Event>
-	inline HRESULT STDMETHODCALLTYPE recordset_event<Event>::WillChangeRecord(
-		EventReasonEnum adReason,
-		LONG cRecords,
-		EventStatusEnum *adStatus,
-		_ADORecordset *pRecordset)
-	{
-		event_.on_record_changing(static_cast<event_reason>(adReason),cRecords);
-		//*adStatus = adStatusUnwantedEvent;
-		return S_OK;
-	}
-
-	template<typename Event>
-	inline HRESULT STDMETHODCALLTYPE recordset_event<Event>::RecordChangeComplete(
-		EventReasonEnum adReason,
-		LONG cRecords,
-		ADOError *pError,
-		EventStatusEnum *adStatus,
-		_ADORecordset *pRecordset)
-	{
-		event_.on_record_changed(static_cast<event_reason>(adReason), cRecords, pError);
-		//*adStatus = adStatusUnwantedEvent;
-		return S_OK;
-	}
-
-	template<typename Event>
-	inline HRESULT STDMETHODCALLTYPE recordset_event<Event>::WillChangeRecordset(
-		EventReasonEnum adReason,
-		EventStatusEnum *adStatus,
-		_ADORecordset *pRecordset)
-	{
-		event_.on_recordset_changing(static_cast<event_reason>(adReason));
-		//*adStatus = adStatusUnwantedEvent;
-		return S_OK;
-	}
-
-	template<typename Event>
-	inline HRESULT STDMETHODCALLTYPE recordset_event<Event>::RecordsetChangeComplete(
-		EventReasonEnum adReason,
-		ADOError *pError,
-		EventStatusEnum *adStatus,
-		_ADORecordset *pRecordset)
-	{
-		event_.on_recordset_changed(static_cast<event_reason>(adReason), pError);
-		//*adStatus = adStatusUnwantedEvent;
-		return S_OK;
-	}
-
-	template<typename Event>
-	inline HRESULT STDMETHODCALLTYPE recordset_event<Event>::WillMove(
-		EventReasonEnum adReason,
-		EventStatusEnum *adStatus,
-		_ADORecordset *pRecordset)
-	{
-		event_.on_moving(static_cast<event_reason>(adReason));
-		//*adStatus = adStatusUnwantedEvent;
-		return S_OK;
-	}
-
-	template<typename Event>
-	inline HRESULT STDMETHODCALLTYPE recordset_event<Event>::MoveComplete(
-		EventReasonEnum adReason,
-		ADOError *pError,
-		EventStatusEnum *adStatus,
-		_ADORecordset *pRecordset)
-	{
-		event_.on_moved(static_cast<event_reason>(adReason), pError);
-		//*adStatus = adStatusUnwantedEvent;
-		return S_OK;
-	}
-
-	template<typename Event>
-	inline HRESULT STDMETHODCALLTYPE recordset_event<Event>::EndOfRecordset(
-		VARIANT_BOOL *fMoreData,
-		EventStatusEnum *adStatus,
-		_ADORecordset *pRecordset)
-	{
-		event_.on_recordset_end(*fMoreData ? true : false);
-		//*adStatus = adStatusUnwantedEvent;
-		return S_OK;
-	}
-
-	template<typename Event>
-	inline HRESULT STDMETHODCALLTYPE recordset_event<Event>::FetchProgress(
-		long Progress,
-		long MaxProgress,
-		EventStatusEnum *adStatus,
-		_ADORecordset *pRecordset)
-	{
-		event_.on_fetching(Progress, MaxProgress);
-		//*adStatus = adStatusUnwantedEvent;
-		return S_OK;
-	}
-
-	template<typename Event>
-	inline HRESULT STDMETHODCALLTYPE recordset_event<Event>::FetchComplete(
-		ADOError *pError,
-		EventStatusEnum *adStatus,
-		_ADORecordset *pRecordset)
-	{
-		event_.on_fetched(pError);
-		//*adStatus = adStatusUnwantedEvent;
-		return S_OK;
-	}
 }

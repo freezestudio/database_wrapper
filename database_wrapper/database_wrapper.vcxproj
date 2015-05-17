@@ -106,6 +106,7 @@
     <ClInclude Include="database\sqlserver\detail\connection.h" />
     <ClInclude Include="database\sqlserver\detail\error.h" />
     <ClInclude Include="database\sqlserver\detail\errors.h" />
+    <ClInclude Include="database\sqlserver\detail\event_command.h" />
     <ClInclude Include="database\sqlserver\detail\event_connection.h" />
     <ClInclude Include="database\sqlserver\detail\event_recordset.h" />
     <ClInclude Include="database\sqlserver\detail\field.h" />
@@ -136,6 +137,15 @@
     <ClCompile Include="database\sqlserver\detail\connection.cpp" />
     <ClCompile Include="database\sqlserver\detail\error.cpp" />
     <ClCompile Include="database\sqlserver\detail\errors.cpp" />
+    <ClCompile Include="database\sqlserver\detail\event_command.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\event_connection.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\event_recordset.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="database\sqlserver\detail\field.cpp" />
     <ClCompile Include="database\sqlserver\detail\fields.cpp" />
     <ClCompile Include="database\sqlserver\detail\parameter.cpp" />

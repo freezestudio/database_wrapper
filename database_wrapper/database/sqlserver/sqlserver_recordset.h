@@ -17,13 +17,16 @@ namespace database
 		{
 		}
 
-		sqlserver_recordset(DataBase const& db,msado::recordset const& set)
+		sqlserver_recordset(DataBase const& db,msado::recordset& set)
 			: detail::basic_recordset<DataBase, SqlService>(db,set)
 		{
 
 		}
 	public:
-		bool open(string const& _select, sqlserver_connect<DataBase>& conn);
+		bool open(string const& table, sqlserver_connect<DataBase>& conn,
+			msado::cursor_type cursortype = msado::open_keyset,
+			msado::lock_type locktype = msado::lock_optimistic,
+			long options = msado::cmd_table);
 
 		string get_string_value(long index) const;
 		string get_string_value(string const& index) const;
@@ -173,9 +176,13 @@ namespace database
 {
 	template<typename DataBase, template<typename>class SqlService>
 	inline bool sqlserver_recordset<DataBase, SqlService>::open(
-		string const& _select, sqlserver_connect<DataBase>& conn)
+		string const& table, sqlserver_connect<DataBase>& conn,
+		msado::cursor_type cursortype/* = msado::open_keyset*/,
+		msado::lock_type locktype/* = msado::lock_optimistic*/,
+		long options/* = msado::cmd_table*/)
 	{
-		return get_service().open(get_implement(),_select,conn);
+		return get_service().open(get_implement(),table,conn,
+			cursortype,locktype,options);
 	}
 
 	template<typename DataBase,template<typename>class SqlService>

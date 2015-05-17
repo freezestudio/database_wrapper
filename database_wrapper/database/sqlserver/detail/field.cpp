@@ -75,6 +75,7 @@ _variant_t msado::field::get_value() const
 void msado::field::set_value(const _variant_t & pvar)
 {
 	(*this)->put_Value(pvar);
+	//ptr_->put_Value(pvar);
 }
 
 unsigned char msado::field::get_precision()

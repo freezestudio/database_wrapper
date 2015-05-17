@@ -18,6 +18,7 @@ namespace msado
 		bool refresh();
 
 		field get_item(const _variant_t & Index) const;
+		field get_item(const _variant_t & Index);
 
 		//bool _append(string const& Name,
 		//	data_type Type,

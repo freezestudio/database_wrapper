@@ -471,11 +471,13 @@ namespace msado
 			//base_interface_type* dispatch() const;
 			base_interface_type* unknown() const;
 			interface_type* get() const;
+			interface_type* get();
 			interface_type** get_address_of();
 			void reset();
 		protected:
 			object();
-			object(base_interface_type* rhs);
+			//object(base_interface_type* ptr);
+			object(interface_type* ptr);
 			object(object const& rhs);
 			virtual ~object();
 		protected:
@@ -562,9 +564,16 @@ namespace msado
 
 		}
 
+		//template<typename SmartPointer>
+		//inline object<SmartPointer>::object(base_interface_type* ptr)
+		//	: ptr_(SmartPointer(reinterpret_cast<interface_type*>(ptr)/*,false*/))
+		//{
+
+		//}
+
 		template<typename SmartPointer>
-		inline object<SmartPointer>::object(base_interface_type* rhs)
-			: ptr_(rhs)
+		inline object<SmartPointer>::object(interface_type* ptr)
+			: ptr_(SmartPointer(ptr))
 		{
 
 		}
@@ -610,6 +619,13 @@ namespace msado
 		}
 
 		template<typename SmartPointer>
+		inline typename object<SmartPointer>::interface_type*
+			object<SmartPointer>::get()
+		{
+			return ptr_.GetInterfacePtr();
+		}
+
+		template<typename SmartPointer>
 		inline typename object<SmartPointer>::interface_type** 
 			object<SmartPointer>::get_address_of()
 		{
@@ -636,7 +652,7 @@ namespace msado
 		template<typename SmartPointer>
 		inline void object<SmartPointer>::copy(base_interface_type* rhs)
 		{
-			ptr_ = rhs;
+			ptr_ = reinterpret_cast<interface_type*>(rhs);
 		}
 
 		//////////////////////////////////////////////////////////

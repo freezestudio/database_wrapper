@@ -1,75 +1,37 @@
 #include "command.h"
-#include "event_connection.h"
 
 ///////////////////////////////////////////
 // ctor dtor internal method
 
 msado::command::command()
 	: cimpl<command,_CommandPtr>()
-	//, eventptr_(new connection_event<command>)
-	, dw_event_(0)
 {
-	//enable_event();
 }
 
 msado::command::command(command const& rhs)
 	: cimpl<command, _CommandPtr>(rhs)
-	, eventptr_(rhs.eventptr_)
-	, dw_event_(rhs.dw_event_)
 {
-	enable_event();
 }
 
 msado::command::command(interface_type* ptr)
 	: cimpl<command, _CommandPtr>(ptr)
-	, eventptr_(new connection_event<command>)
-	, dw_event_(0)
 {
-	enable_event();
 }
 
 msado::command::command(CLSID const& clsid)
 	: cimpl<command, _CommandPtr>(clsid)
-	, eventptr_(new connection_event<command>)
-	, dw_event_(0)
 {
-	enable_event();
 }
 
 msado::command::~command()
 {
-	if (dw_event_)enable_event(false);
 }
 
-bool msado::command::enable_event(bool enable/* = true*/)
+bool msado::command::enable_event(command_event* pevent,bool enabled/* = true*/)
 {
-	IConnectionPointContainerPtr connPointerContainer;
-	HRESULT hr = ptr_.QueryInterface(
-		IID_IConnectionPointContainer, &connPointerContainer);
-	if (FAILED(hr))return false;
-
-	IConnectionPointPtr connPointer;
-	hr = connPointerContainer->FindConnectionPoint(
-		__uuidof(ConnectionEvents), &connPointer);
-	if (FAILED(hr))return false;
-
-	if (enable)
-	{
-		_com_ptr_t < _com_IIID<IUnknown, &__uuidof(IUnknown)> > eventptr;
-		hr = eventptr_->QueryInterface(IID_IUnknown, (void**)&eventptr);
-		if (FAILED(hr))return false;
-
-		hr = connPointer->Advise(eventptr, &dw_event_);
-	}
-	else
-	{
-		hr = connPointer->Unadvise(dw_event_);
-	}
-
-	if (FAILED(hr))return false;
-
-	return true;
+	return pevent->enable_event(enabled);
 }
+
 //////////////////////////////////////////////////
 // public method
 

@@ -23,7 +23,7 @@ namespace database
 
 			}
 
-			basic_recordset(DataBase const& db,msado::recordset const& set)
+			basic_recordset(DataBase const& db,msado::recordset& set)
 				: basic_object<Service<DataBase> >(db,set.get())
 			{
 

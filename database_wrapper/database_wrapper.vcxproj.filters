@@ -162,6 +162,9 @@
     <ClInclude Include="test_sqlite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="database\sqlserver\detail\event_command.h">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -220,6 +223,15 @@
     </ClCompile>
     <ClCompile Include="database_wrapper.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\event_command.cpp">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\event_connection.cpp">
+      <Filter>database\sqlserver\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="database\sqlserver\detail\event_recordset.cpp">
+      <Filter>database\sqlserver\detail</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

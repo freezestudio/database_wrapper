@@ -17,7 +17,7 @@ namespace database
 			{
 			}
 
-			basic_connect(DataBase const& db, msado::connection const& conn)
+			basic_connect(DataBase const& db, msado::connection& conn)
 				: basic_object<Service<DataBase> >(db,conn.get())
 			{
 

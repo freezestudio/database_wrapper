@@ -6,6 +6,7 @@
 #include "error.h"
 #include "command.h"
 #include "connection.h"
+#include "event_recordset.h"
 
 namespace msado
 {
@@ -34,6 +35,7 @@ namespace msado
 		void set_cursor_type(cursor_type plCursorType = open_dynamic);
 		bool get_EOF() const;
 		fields get_fields() const;
+		fields get_fields();
 		lock_type get_lock_type() const;
 		void set_lock_type(lock_type plLockType = lock_read_only);
 		long get_max_records() const;
@@ -63,9 +65,9 @@ namespace msado
 		bool open(
 			const _variant_t & Source,
 			const _variant_t & ActiveConnection,
-			cursor_type CursorType = open_dynamic,
+			cursor_type CursorType = open_keyset,
 			lock_type LockType = lock_optimistic,
-			long Options = /*command_type::*/cmd_text);
+			long Options = /*command_type::*/cmd_table);
 		bool requery(long Options = /*execute_option::*/option_unspecified);
 		bool _xresync(affect AffectRecords);
 		bool _update(
@@ -137,6 +139,8 @@ namespace msado
 
 		//ÊÂ¼þ
 	public:
+		bool enable_event(recordset_event* pevent,bool enable = true);
+	public:
 		void on_field_changing(long cFields, _variant_t const& Fields);
 		void on_field_changed(long cFields, _variant_t const& Fields,error const& e);
 		void on_record_changing(event_reason adReason, long cRecords);
@@ -148,10 +152,5 @@ namespace msado
 		void on_recordset_end(bool fMoreData);
 		void on_fetching(long Progress, long MaxProgress);
 		void on_fetched(error const& e);
-	private:
-		bool enable_event(bool enable = true);
-	private:
-		IUnknownPtr eventptr_;
-		DWORD dw_event_;
 	};
 }

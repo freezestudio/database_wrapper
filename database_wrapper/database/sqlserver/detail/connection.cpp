@@ -2,77 +2,37 @@
 //
 
 #include "connection.h"
-#include "event_connection.h"
 
 //////////////////////////////////////////////////////
 // ctor -- dtor internal methord
 
 msado::connection::connection()
 	: cimpl<connection, _ConnectionPtr>()
-	//, eventptr_(new connection_event<connection>)
-	, dw_event_(0)
-{	
-	//enable_event();
+{
 }
 
 msado::connection::connection(connection const& rhs)
 	: cimpl<connection, _ConnectionPtr>(rhs)
-	, eventptr_(rhs.eventptr_)
-	, dw_event_(rhs.dw_event_)
 {
-	enable_event();
 }
 
 msado::connection::connection(connection::interface_type* ptr)
 	: cimpl<connection, _ConnectionPtr>(ptr)
-	, eventptr_(new connection_event<connection>)
-	, dw_event_(0)
-{
-	enable_event();
+{	
 }
 
 msado::connection::connection(CLSID const& clsid)
 	: cimpl<connection, _ConnectionPtr>(clsid)
-	, eventptr_(new connection_event<connection>)
-	, dw_event_(0)
 {
-	enable_event();
 }
 
 msado::connection::~connection()
 {
-	if(dw_event_)
-		enable_event(false);
 }
 
-bool msado::connection::enable_event(bool enable/* = true*/)
+bool msado::connection::enable_event(connection_event* pevent, bool enabled/* = true*/)
 {
-	IConnectionPointContainerPtr connPointerContainer;
-	HRESULT hr=ptr_.QueryInterface(
-		IID_IConnectionPointContainer, &connPointerContainer);
-	if (FAILED(hr))return false;
-
-	IConnectionPointPtr connPointer;
-	hr=connPointerContainer->FindConnectionPoint(
-		__uuidof(ConnectionEvents), &connPointer);
-	if (FAILED(hr))return false;
-
-	if (enable)
-	{
-		_com_ptr_t < _com_IIID<IUnknown, &__uuidof(IUnknown)> > eventptr;
-		hr = eventptr_->QueryInterface(IID_IUnknown, (void**)&eventptr);
-		if (FAILED(hr))return false;
-
-		hr = connPointer->Advise(eventptr, &dw_event_);
-	}
-	else
-	{
-		hr = connPointer->Unadvise(dw_event_);
-	}
-	
-	if (FAILED(hr))return false;
-
-	return true;
+	return pevent->enable_event(enabled);
 }
 
 //////////////////////////////////////////////////////////////
@@ -101,7 +61,7 @@ msado::string msado::connection::get_connection_string() const
 	return str;
 }
 
-void msado::connection::set_onnectionString(msado::string const& pbstr)
+void msado::connection::set_connection_string(msado::string const& pbstr)
 {
 	_bstr_t bstr = detail::string_to_bstr_t(pbstr);
 	HRESULT hr = (*this)->put_ConnectionString(bstr.GetBSTR());
@@ -119,7 +79,7 @@ void msado::connection::set_command_timeout(long plTimeout/* = 30 seconds*/)
 	(*this)->put_CommandTimeout(plTimeout);
 }
 
-long msado::connection::get_onnection_timeout() const
+long msado::connection::get_connection_timeout() const
 {
 	long timeout = 0;
 	(*this)->get_ConnectionTimeout(&timeout);

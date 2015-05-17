@@ -38,7 +38,7 @@ IUnknownPtr msado::fields::_new_enum()
 bool msado::fields::refresh()
 {
 	HRESULT hr = (*this)->Refresh();
-	return S_OK;
+	return hr == S_OK;
 }
 
 msado::field msado::fields::get_item(const _variant_t & Index) const
@@ -48,10 +48,17 @@ msado::field msado::fields::get_item(const _variant_t & Index) const
 	return f;
 }
 
+msado::field msado::fields::get_item(const _variant_t & Index)
+{
+	field f;
+	(*this)->get_Item(Index, f.get_address_of());
+	return f;
+}
+
 bool msado::fields::_delete(const _variant_t & Index)
 {
 	HRESULT hr = (*this)->Delete(Index);
-	return S_OK;
+	return hr == S_OK;
 }
 
 bool msado::fields::append(string const& Name,
@@ -66,23 +73,23 @@ bool msado::fields::append(string const& Name,
 		DefinedSize,
 		static_cast<FieldAttributeEnum>(Attrib),
 		FieldValue);
-	return S_OK;
+	return hr == S_OK;
 }
 
 bool msado::fields::update()
 {
 	HRESULT hr = (*this)->Update();
-	return S_OK;
+	return hr == S_OK;
 }
 
 bool msado::fields::resync(_resync ResyncValues)
 {
 	HRESULT hr = (*this)->Resync(static_cast<ResyncEnum>(ResyncValues));
-	return S_OK;
+	return hr == S_OK;
 }
 
 bool msado::fields::cancel_update()
 {
 	HRESULT hr=(*this)->CancelUpdate();
-	return S_OK;
+	return hr == S_OK;
 }

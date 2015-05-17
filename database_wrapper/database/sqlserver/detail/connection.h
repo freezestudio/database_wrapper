@@ -4,6 +4,7 @@
 #include "properties.h"
 #include "recordset.h"
 #include "errors.h"
+#include "event_connection.h"
 
 namespace msado
 {
@@ -19,10 +20,10 @@ namespace msado
 	public:
 		properties get_properties() const;
 		string get_connection_string() const;
-		void set_onnectionString(string const& pbstr);
+		void set_connection_string(string const& pbstr);
 		long get_command_timeout() const;
 		void set_command_timeout(long plTimeout = 30/*seconds*/);
-		long get_onnection_timeout() const;
+		long get_connection_timeout() const;
 		void set_connection_timeout(long plTimeout = 15/*seconds*/);
 		string get_version() const;
 		bool close();
@@ -59,6 +60,8 @@ namespace msado
 
 		//ÊÂ¼þ
 	public:
+		bool enable_event(connection_event* pevent,bool enabled=true);
+	public:
 		void on_begin_transed(error const& e);
 		void on_commit_transed(error const& e);
 		void on_rollback_transed(error const& e);
@@ -73,10 +76,5 @@ namespace msado
 		void on_connecting(string const&, string const&, string const&, long);
 		void on_connected(error const& e);
 		void on_disconnected();
-	private:
-		bool enable_event(bool enable=true);
-	private:
-		IUnknownPtr eventptr_;
-		DWORD dw_event_;
 	};
 }

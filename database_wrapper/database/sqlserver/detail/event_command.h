@@ -3,14 +3,14 @@
 #include "msado.h"
 
 namespace msado
-{	
-	class connection_event
+{
+	class command_event
 		: public ConnectionEventsVt
 	{
 	public:
-		explicit connection_event(connection* pevent);
-		connection_event(connection_event const&);
-		~connection_event();
+		command_event(command* pevent);
+		command_event(command_event const&);
+		~command_event();
 	public:
 		virtual HRESULT STDMETHODCALLTYPE QueryInterface(
 			/* [in] */ REFIID riid,
@@ -75,14 +75,14 @@ namespace msado
 			/* [in] */ __RPC__in_opt _ADOConnection *pConnection);
 
 	public:
-		bool enable_event(bool enabled = true);
+		bool enable_event(bool enable = true);
 
 	private:
 		void init();
 	private:
 		ULONG ref_;
 		DWORD dw_event_;
-		connection* eventp_;
+		command* eventp_;
 
 	private:
 		IConnectionPointContainer* pconnPointerContainer;

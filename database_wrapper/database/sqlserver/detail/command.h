@@ -5,6 +5,7 @@
 #include "connection.h"
 #include "parameter.h"
 #include "parameters.h"
+#include "event_command.h"
 
 namespace msado
 {
@@ -51,7 +52,10 @@ namespace msado
 		msado::string get_dialect() const;
 		void set_named_parameters(bool pfNamedParameters);
 		bool get_named_parameters() const;
+
 		//ÊÂ¼þ
+	public:
+		bool enable_event(command_event* pevent, bool enabled = true);
 	public:
 		void on_begin_transed(error const& e);
 		void on_commit_transed(error const& e);
@@ -67,10 +71,5 @@ namespace msado
 		void on_connecting(string const&, string const&, string const&, long);
 		void on_connected(error const& e);
 		void on_disconnected();
-	private:
-		bool enable_event(bool enable = true);
-	private:
-		IUnknownPtr eventptr_;
-		DWORD dw_event_;
 	};
 }

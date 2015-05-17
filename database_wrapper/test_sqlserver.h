@@ -23,6 +23,14 @@ public:
 	void test_connect_create();
 	void test_connect_method();
 	void test_connect_destroy();
+
+	void test_command_create();
+	void test_command_method();
+	void test_command_destroy();
+
+	void test_recordset_create();
+	void test_recordset_method();
+	void test_recordset_destroy();
 private:
 	connect_test* pconn;
 	command_test* pcmd;
@@ -39,7 +47,7 @@ public:
 	{
 	}
 
-	connect_test(database::sqlserver const& db, msado::connection const& conn)
+	connect_test(database::sqlserver const& db, msado::connection& conn)
 		: adoconn(db, conn)
 	{
 
@@ -71,7 +79,7 @@ public:
 	{
 	}
 
-	command_test(database::sqlserver const& db, msado::command const& cmd)
+	command_test(database::sqlserver const& db, msado::command& cmd)
 		: adocmd(db,cmd)
 	{
 
@@ -89,7 +97,7 @@ public:
 	{
 	}
 
-	recordset_test(database::sqlserver const& db,msado::recordset const& set)
+	recordset_test(database::sqlserver const& db,msado::recordset& set)
 		: adoset(db,set)
 	{
 

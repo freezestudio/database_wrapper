@@ -10,16 +10,13 @@
 void TEST_sqlserver();
 void TEST_sqlite();
 
+// database : dbo.ado_test
+// table    : dbo.person
+// schema   : ID:int Name:varchar Uint:varchar Age:int Born:datetime Address:text
+//
 int _tmain(int argc, _TCHAR* argv[])
 {
 	database::cominit init;
-
-	msado::connection conn(msado::Clsid::ADODB_Connection());
-	conn.open(connection_string, L"", L"sql2014");
-	msado::command cmd(msado::Clsid::ADODB_Command());
-	cmd.set_active_connection(_variant_t(conn.get()));
-	cmd.set_command_text(L"select * from person");
-	_variant_t cmdstream=cmd.get_command_stream();
 
 	TEST_sqlserver();
 
@@ -29,8 +26,18 @@ int _tmain(int argc, _TCHAR* argv[])
 void TEST_sqlserver()
 {
 	sqlserver_test test;
-	test.test_connect_create();
-	test.test_connect_method();
+
+	//test.test_connect_create();
+	//test.test_connect_method();
+	//test.test_connect_destroy();
+
+	//test.test_command_create();
+	//test.test_command_method();
+	//test.test_command_destroy();
+
+	test.test_recordset_create();
+	test.test_recordset_method();
+	test.test_recordset_destroy();
 }
 
 void TEST_sqlite()

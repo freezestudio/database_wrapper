@@ -23,7 +23,7 @@ namespace database
 
 			}
 
-			basic_command(DataBase const& db, msado::command const& cmd)
+			basic_command(DataBase const& db, msado::command& cmd)
 				: basic_object<Service<DataBase> >(db,cmd.get())
 			{
 

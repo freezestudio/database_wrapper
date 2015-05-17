@@ -17,7 +17,7 @@ namespace database
 		{
 		}
 
-		sqlserver_command(DataBase const& db, msado::command const& cmd)
+		sqlserver_command(DataBase const& db, msado::command& cmd)
 			: detail::basic_command<DataBase,SqlService>(db,cmd)
 		{
 

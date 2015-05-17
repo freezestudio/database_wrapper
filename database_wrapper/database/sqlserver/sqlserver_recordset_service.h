@@ -33,7 +33,11 @@ namespace database
 	//	}
 	public:
 		bool open(implement_type& impl,
-			string const& _select, sqlserver_connect<DataBase>& conn);
+			string const& table,
+			sqlserver_connect<DataBase>& conn,
+			msado::cursor_type cursortype=msado::open_keyset,
+			msado::lock_type locktype=msado::lock_optimistic,
+			long options=msado::cmd_table);
 
 		bool close(implement_type& impl);
 
@@ -208,10 +212,14 @@ namespace database
 
 	template<typename DataBase>
 	inline bool sqlserver_recordset_service<DataBase>::open(implement_type& impl,
-		string const& _select, sqlserver_connect<DataBase>& conn)
-	{
-		return impl.open(_variant_t(static_cast<const wchar_t*>(_select)),
-			_variant_t(conn.get_internal_ptr()/*, false*/), msado::open_static);
+		string const& table, sqlserver_connect<DataBase>& conn,
+		msado::cursor_type cursortype/* = msado::open_keyset*/,
+		msado::lock_type locktype/* = msado::lock_optimistic*/,
+		long options/* = msado::cmd_table*/)
+	{		
+		return impl.open(_variant_t(static_cast<const wchar_t*>(table)),
+			_variant_t((IDispatch*)conn.get_internal_ptr(),true),
+			cursortype,locktype,options);
 	}
 
 	template<typename DataBase>
@@ -1175,7 +1183,7 @@ namespace database
 	inline bool sqlserver_recordset_service<DataBase>::set_value_impl(
 		implement_type& impl, long index, _variant_t const& val)
 	{
-		if (get_state() == static_cast<long>(msado::edit_none))
+		if (impl.get_state() == static_cast<long>(msado::edit_none))
 		{
 			return false;
 		}
@@ -1191,7 +1199,7 @@ namespace database
 	inline bool sqlserver_recordset_service<DataBase>::set_value_impl(
 		implement_type& impl, string const& index, _variant_t const& val)
 	{
-		if (get_state() == static_cast<long>(msado::edit_none))
+		if (impl.get_state() == static_cast<long>(msado::edit_none))
 		{
 			return false;
 		}
