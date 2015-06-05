@@ -178,6 +178,7 @@ void sqlserver_test::test_recordset_create()
 		pset->set_value(L"Age", long(30));
 		pset->set_value(4, L"1990-3-11");
 		pset->set_value(L"Address", L"ÄþÏÄÒø´¨");
+
 		try
 		{
 			bool bupdate=pset->update();
@@ -187,7 +188,6 @@ void sqlserver_test::test_recordset_create()
 			_bstr_t dest=e.Description();
 			_bstr_t msg = e.ErrorMessage();
 		}
-		//bool batch=pset->update_batch(msado::affect::affect_all);
 	}
 
 	pset->close();

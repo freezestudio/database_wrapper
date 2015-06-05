@@ -123,6 +123,7 @@
     <ClInclude Include="database\sqlserver\sqlserver_connect_service.h" />
     <ClInclude Include="database\sqlserver\sqlserver_recordset.h" />
     <ClInclude Include="database\sqlserver\sqlserver_recordset_service.h" />
+    <ClInclude Include="safearray.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="test_sqlite.h" />

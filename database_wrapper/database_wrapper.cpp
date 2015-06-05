@@ -7,6 +7,8 @@
 #include "test_sqlserver.h"
 #include "test_sqlite.h"
 
+#include "safearray.h"
+
 void TEST_sqlserver();
 void TEST_sqlite();
 
